@@ -1,35 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const cash = useSelector((state) => state.cash);
+  console.log(cash);
+
+  const addCash = (cash) => {
+    dispatch({ type: "ADD_CASH", payload: cash });
+  };
+
+  const getCash = (cash) => {
+    dispatch({ type: "GET_CASH", payload: cash });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <div>{cash}</div>
+      <div style={{ display: "flex" }}>
+        <button onClick={() => addCash(Number(prompt()))}>Add</button>
+        <button onClick={() => getCash(Number(prompt()))}>Remove</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
